@@ -168,7 +168,20 @@
   --accent-ink:#ffffff;                   /* white text — only safe on the full-saturated --accent fill, not on tints */
   --on-accent-tint: var(--accent);        /* dark cobalt text — for light tinted backgrounds */
   --accent-soft: color-mix(in oklch, var(--accent) 14%, var(--surface));
-  --warn:      oklch(0.60 0.18 28);       /* warm signal — "missed" */
+  --warn:      oklch(0.60 0.18 28);       /* loss money, X icon */
+
+  /* Outcome tokens — compare cards (and future industry pages) */
+  --outcome-loss:        var(--warn);          /* loss money, the X badge */
+  --outcome-loss-strong: oklch(0.56 0.18 28);  /* solid MISSED badge — white text 5.1:1 */
+  --outcome-loss-soft:   color-mix(in oklch, var(--outcome-loss) 18%, var(--outcome-inert));
+  --outcome-loss-soft-ink: oklch(0.50 0.17 28); /* loss.soft text — 4.9:1 on tint */
+  /* Inert text is mixed in oklab (not oklch) so they stay neutral and track --ink/--surface */
+  --outcome-inert:       var(--surface);       /* "without" surface — off-white card */
+  --outcome-inert-ink:   color-mix(in oklab, var(--ink) 68%, var(--surface)); /* inert text — 7.7:1 on off-white surface */
+  --outcome-win:         var(--accent);        /* win.strong fill */
+  --outcome-win-ink:     var(--accent-ink);    /* white on --outcome-win — 5.1:1 */
+  --outcome-win-soft:    color-mix(in oklch, var(--accent) 22%, var(--surface));
+  --outcome-win-soft-ink:oklch(0.46 0.20 262); /* win.soft text — 5.2:1 on tint */
 
   /* Type system: Sora display, Nunito body, Geist Mono numerals */
   --display: "Space Grotesk", "Helvetica Neue", system-ui, sans-serif;
@@ -1071,19 +1084,26 @@ p { margin: 0; color: var(--ink-2); }
   stroke-width: 1.5;
 }
 .col-status-bad {
-  background: oklch(0.60 0.18 28);
+  background: var(--outcome-loss);
   color: #ffffff;
-  box-shadow: 0 0 0 4px color-mix(in oklch, oklch(0.60 0.18 28) 22%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in oklch, var(--outcome-loss) 22%, transparent);
 }
 .col-status-good {
-  background: oklch(0.62 0.15 152);
-  color: #ffffff;
-  box-shadow: 0 0 0 4px color-mix(in oklch, oklch(0.62 0.15 152) 22%, transparent);
+  background: var(--outcome-win);
+  color: var(--outcome-win-ink);
+  box-shadow: 0 0 0 4px color-mix(in oklch, var(--outcome-win) 22%, transparent);
 }
 .compare-col.bad {
-  background: color-mix(in oklch, var(--warn) 5%, var(--surface));
-  border-color: color-mix(in oklch, var(--warn) 25%, var(--line));
+  background: var(--outcome-inert);
+  border-color: var(--line-2);
 }
+/* "Without" reads as absence: gray copy, ink only for emphasis and counts */
+.compare-col.bad h4,
+.compare-col.bad .col-sub,
+.compare-col.bad .call-list .t,
+.compare-col.bad .call-list .desc,
+.compare-col.bad .compare-foot .v { color: var(--outcome-inert-ink); }
+.compare-col.bad h4 .italic { color: var(--ink); }
 .compare-col.good {
   background: color-mix(in oklch, var(--accent) 8%, var(--surface));
   border-color: color-mix(in oklch, var(--accent) 30%, var(--line));
@@ -1121,11 +1141,13 @@ p { margin: 0; color: var(--ink-2); }
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-.tag.miss   { background: color-mix(in oklch, var(--warn) 18%, transparent); color: var(--warn); }
-.tag.vm     { background: var(--bg-2); color: var(--muted); }
-.tag.book   { background: var(--ink); color: var(--bg); }
-.tag.handled{ background: var(--accent); color: var(--accent-ink); }
-.tag.ans    { background: color-mix(in oklch, var(--accent) 22%, var(--surface)); color: var(--on-accent-tint); }
+/* Badge weight follows revenue impact:
+   win-strong = revenue kept or created, win-soft = service resolved,
+   loss-strong = revenue lost (missed), loss-soft = deferred (voicemail) */
+.tag.loss-strong { background: var(--outcome-loss-strong); color: var(--outcome-win-ink); }
+.tag.loss-soft  { background: var(--outcome-loss-soft); color: var(--outcome-loss-soft-ink); }
+.tag.win-strong { background: var(--outcome-win); color: var(--outcome-win-ink); }
+.tag.win-soft   { background: var(--outcome-win-soft); color: var(--outcome-win-soft-ink); }
 
 .compare-foot {
   margin-top: 24px;
@@ -1141,8 +1163,8 @@ p { margin: 0; color: var(--ink-2); }
 .compare-foot > div:last-child .k { font-size: 38px; text-align: right; }
 .compare-foot > div:last-child { text-align: right; justify-self: end; }
 .compare-foot .v { font-family: var(--mono); font-size: 11px; text-transform: uppercase; color: var(--muted); letter-spacing: 0.12em; margin-top: 8px; white-space: nowrap; }
-.compare-col.bad .compare-foot .k.lost { color: var(--warn); }
-.compare-col.good .compare-foot .k.gain { color: var(--accent); }
+.compare-col.bad .compare-foot .k.lost { color: var(--outcome-loss); }
+.compare-col.good .compare-foot .k.gain { color: var(--outcome-win); }
 
 /* ---------- ROI ---------- */
 .roi {
@@ -2132,17 +2154,17 @@ p { margin: 0; color: var(--ink-2); }
         <div class="col-sub" style="font-family: var(--sans); font-weight: 700">Without on24seven</div>
         <h4>Calls fall through <span class="italic">the cracks.</span></h4>
         <ul class="call-list">
-          <li><span class="t">9:12 am</span><span class="desc">New patient · cleaning</span><span class="tag miss">Missed</span></li>
-          <li><span class="t">10:04 am</span><span class="desc">Sarah · reschedule</span><span class="tag vm">Voicemail</span></li>
-          <li><span class="t">11:38 am</span><span class="desc">Mark · insurance question</span><span class="tag miss">Missed</span></li>
-          <li><span class="t">1:22 pm</span><span class="desc">Walk-in · tooth pain</span><span class="tag vm">Voicemail</span></li>
-          <li><span class="t">2:55 pm</span><span class="desc">Linda · cancel filling</span><span class="tag miss">Missed</span></li>
-          <li><span class="t">4:07 pm</span><span class="desc">New patient · whitening</span><span class="tag vm">Voicemail</span></li>
-          <li><span class="t">5:41 pm</span><span class="desc">Lee · crown pricing</span><span class="tag miss">Missed</span></li>
-          <li><span class="t">6:30 pm</span><span class="desc">Maya · book Saturday</span><span class="tag vm">Voicemail</span></li>
+          <li><span class="t">9:12 am</span><span class="desc">New patient · cleaning</span><span class="tag loss-strong">Missed</span></li>
+          <li><span class="t">10:04 am</span><span class="desc">Sarah · reschedule</span><span class="tag loss-soft">Voicemail</span></li>
+          <li><span class="t">11:38 am</span><span class="desc">Mark · insurance question</span><span class="tag loss-strong">Missed</span></li>
+          <li><span class="t">1:22 pm</span><span class="desc">Walk-in · tooth pain</span><span class="tag loss-soft">Voicemail</span></li>
+          <li><span class="t">2:55 pm</span><span class="desc">Linda · cancel filling</span><span class="tag loss-strong">Missed</span></li>
+          <li><span class="t">4:07 pm</span><span class="desc">New patient · whitening</span><span class="tag loss-soft">Voicemail</span></li>
+          <li><span class="t">5:41 pm</span><span class="desc">Lee · crown pricing</span><span class="tag loss-strong">Missed</span></li>
+          <li><span class="t">6:30 pm</span><span class="desc">Maya · book Saturday</span><span class="tag loss-soft">Voicemail</span></li>
         </ul>
         <div class="compare-foot">
-          <div><div class="k tnum lost">8</div><div class="v">Calls lost</div></div>
+          <div><div class="k tnum">8</div><div class="v">Calls lost</div></div>
           <div><div class="k tnum">0</div><div class="v">Booked</div></div>
           <div><div class="k tnum lost">−$3,360</div><div class="v">Revenue at risk</div></div>
         </div>
@@ -2153,14 +2175,14 @@ p { margin: 0; color: var(--ink-2); }
         <div class="col-sub" style="font-family: var(--sans); font-weight: 700">With on24seven</div>
         <h4>Every call <span class="italic">handled.</span></h4>
         <ul class="call-list">
-          <li><span class="t">9:12 am</span><span class="desc">New patient · booked Thu 3pm</span><span class="tag book">Booked</span></li>
-          <li><span class="t">10:04 am</span><span class="desc">Sarah · moved to Fri 11am</span><span class="tag handled">Rescheduled</span></li>
-          <li><span class="t">11:38 am</span><span class="desc">Mark · insurance verified, SMS sent</span><span class="tag ans">Answered</span></li>
-          <li><span class="t">1:22 pm</span><span class="desc">Tooth pain · triaged, booked today 5pm</span><span class="tag book">Booked</span></li>
-          <li><span class="t">2:55 pm</span><span class="desc">Linda · cancelled, slot freed</span><span class="tag handled">Handled</span></li>
-          <li><span class="t">4:07 pm</span><span class="desc">New patient · booked Sat 10am</span><span class="tag book">Booked</span></li>
-          <li><span class="t">5:41 pm</span><span class="desc">Lee · crown quoted, follow-up set</span><span class="tag ans">Answered</span></li>
-          <li><span class="t">6:30 pm</span><span class="desc">Maya · booked Sat 9am</span><span class="tag book">Booked</span></li>
+          <li><span class="t">9:12 am</span><span class="desc">New patient · booked Thu 3pm</span><span class="tag win-strong">Booked</span></li>
+          <li><span class="t">10:04 am</span><span class="desc">Sarah · moved to Fri 11am</span><span class="tag win-strong">Rescheduled</span></li>
+          <li><span class="t">11:38 am</span><span class="desc">Mark · insurance verified, SMS sent</span><span class="tag win-soft">Answered</span></li>
+          <li><span class="t">1:22 pm</span><span class="desc">Tooth pain · triaged, booked today 5pm</span><span class="tag win-strong">Booked</span></li>
+          <li><span class="t">2:55 pm</span><span class="desc">Linda · cancelled, slot freed</span><span class="tag win-soft">Handled</span></li>
+          <li><span class="t">4:07 pm</span><span class="desc">New patient · booked Sat 10am</span><span class="tag win-strong">Booked</span></li>
+          <li><span class="t">5:41 pm</span><span class="desc">Lee · crown quoted, follow-up set</span><span class="tag win-soft">Answered</span></li>
+          <li><span class="t">6:30 pm</span><span class="desc">Maya · booked Sat 9am</span><span class="tag win-strong">Booked</span></li>
         </ul>
         <div class="compare-foot">
           <div><div class="k tnum">8</div><div class="v">Handled</div></div>
