@@ -172,10 +172,10 @@
 
   /* Outcome tokens — compare cards (and future industry pages) */
   --outcome-loss:        var(--warn);          /* loss money + the X badge only */
-  /* Inert grays are mixed in oklab (not oklch) so they stay neutral and track --ink/--surface */
-  --outcome-inert:       color-mix(in oklab, var(--ink) 5%, var(--surface));  /* "without" surface */
+  /* Inert pill and text are mixed in oklab (not oklch) so they stay neutral and track --ink/--surface */
+  --outcome-inert:       var(--surface-2);     /* "without" surface — plain white card */
   --outcome-inert-fill:  color-mix(in oklab, var(--ink) 12%, var(--surface)); /* inert badge pill */
-  --outcome-inert-ink:   color-mix(in oklab, var(--ink) 68%, var(--surface)); /* inert text — 5.7:1 on pill, 6.9:1 on surface */
+  --outcome-inert-ink:   color-mix(in oklab, var(--ink) 68%, var(--surface)); /* inert text — 5.7:1 on pill, 8.4:1 on white surface */
   --outcome-win:         var(--accent);        /* win.strong fill */
   --outcome-win-ink:     var(--accent-ink);    /* white on --outcome-win — 5.1:1 */
   --outcome-win-soft:    color-mix(in oklch, var(--accent) 22%, var(--surface));

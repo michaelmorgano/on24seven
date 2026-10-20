@@ -12,7 +12,7 @@ Color says who did the work. Blue means on24seven delivered. Red means money los
 | `--outcome-win-ink` | Text on `--outcome-win` | White glyphs and labels on solid blue |
 | `--outcome-win-soft` / `--outcome-win-soft-ink` | Service resolved | Tinted win badges |
 | `--outcome-loss` | Money lost | The X badge and loss money figures **only** |
-| `--outcome-inert` / `-fill` / `-ink` | Absence: a missed call | "Without" surfaces, their badges and copy |
+| `--outcome-inert` / `-fill` / `-ink` | Absence: a missed call | "Without" card (plain white), its gray badges and copy |
 
 Rules:
 
@@ -44,7 +44,7 @@ Current measured values:
 | `.tag.inert` | 5.7:1 |
 | `.tag.win-soft` | 5.2:1 |
 | `.tag.win-strong` | 5.1:1 |
-| Inert copy on `--outcome-inert` | 6.9:1 |
-| Loss money on `--outcome-inert` (38px) | 3.5:1 |
+| Inert copy on `--outcome-inert` (white) | 8.4:1 |
+| Loss money on `--outcome-inert` (38px) | 4.3:1 |
 
-If you change `--surface`, `--ink`, or `--accent`, re-measure these values on the rendered page. The inert grays are mixed in oklab from `--ink` and `--surface`, so they follow those changes automatically, but their contrast can still shift.
+If you change `--surface`, `--ink`, or `--accent`, re-measure these values on the rendered page. The inert pill and text grays are mixed in oklab from `--ink` and `--surface`, so they follow those changes automatically, but their contrast can still shift.
