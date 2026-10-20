@@ -4,7 +4,7 @@ How color is used on on24seven pages. Tokens live in `:root` in `index.html`.
 
 ## Outcome colors
 
-Color says who did the work. Blue means on24seven delivered. Red means money lost. Gray means nothing happened.
+Color says who did the work. Blue means on24seven delivered. Red means money lost. The two cards mirror each other: solid for the strongest outcome, tint for the lesser one.
 
 | Token | Meaning | Use for |
 |---|---|---|
@@ -12,13 +12,14 @@ Color says who did the work. Blue means on24seven delivered. Red means money los
 | `--outcome-win-ink` | Text on `--outcome-win` | White glyphs and labels on solid blue |
 | `--outcome-win-soft` / `--outcome-win-soft-ink` | Service resolved | Tinted win badges |
 | `--outcome-loss` | Money lost | The X badge and loss money figures |
-| `--outcome-loss-soft` / `--outcome-loss-soft-ink` | A call that lost revenue | Tinted red badges (Missed) |
-| `--outcome-inert` / `-fill` / `-ink` | Absence: a missed call | "Without" card (plain white), its gray badges and copy |
+| `--outcome-loss-strong` | Revenue lost | Solid red badges (Missed), white text via `--outcome-win-ink` |
+| `--outcome-loss-soft` / `--outcome-loss-soft-ink` | Deferred, at risk | Tinted red badges (Voicemail) |
+| `--outcome-inert` / `-ink` | Absence | "Without" card (plain white) and its gray copy |
 
 Rules:
 
 - **Brand blue never appears on a "without" or loss surface.** Use ink for emphasis there.
-- **Red marks lost revenue only.** That means the X, loss money, and tinted Missed badges. Copy and counts on the loss side stay gray.
+- **Red marks lost revenue only.** That means the X, loss money, and the loss badges. Copy and counts on the loss side stay gray.
 - **Counts are ink, money is semantic.** On both sides, a number like "8 calls" is `--ink`. A dollar figure takes the outcome color.
 - **One success color.** Don't introduce green or black for wins.
 
@@ -30,10 +31,10 @@ Badge weight follows revenue impact:
 |---|---|---|---|
 | Solid blue | `.tag.win-strong` | Revenue kept or created | Booked, Rescheduled |
 | Tinted blue | `.tag.win-soft` | Service resolved, no revenue change | Answered, Handled |
-| Tinted red | `.tag.loss-soft` | Revenue lost | Missed |
-| Gray | `.tag.inert` | Deferred, nothing resolved yet | Voicemail |
+| Solid red | `.tag.loss-strong` | Revenue lost | Missed |
+| Tinted red | `.tag.loss-soft` | Deferred, revenue at risk | Voicemail |
 
-For a new badge on an industry page, ask "did this keep or create revenue?" Yes means solid blue. Resolved without revenue means tinted blue. On the loss side, tinted red means revenue was lost and gray means nothing happened yet.
+For a new badge on an industry page, ask "did this keep or create revenue?" Yes means solid blue. Resolved without revenue means tinted blue. The loss side mirrors this: solid red means revenue was lost, tinted red means it is at risk.
 
 ## Contrast
 
@@ -43,11 +44,11 @@ Current measured values:
 
 | Element | Ratio |
 |---|---|
+| `.tag.loss-strong` | 5.1:1 |
 | `.tag.loss-soft` | 5.3:1 |
-| `.tag.inert` | 5.7:1 |
 | `.tag.win-soft` | 5.2:1 |
 | `.tag.win-strong` | 5.1:1 |
 | Inert copy on `--outcome-inert` (white) | 8.4:1 |
 | Loss money on `--outcome-inert` (38px) | 4.3:1 |
 
-If you change `--surface`, `--ink`, or `--accent`, re-measure these values on the rendered page. The inert pill and text grays are mixed in oklab from `--ink` and `--surface`, so they follow those changes automatically, but their contrast can still shift.
+If you change `--surface`, `--ink`, or `--accent`, re-measure these values on the rendered page. The inert text gray is mixed in oklab from `--ink` and `--surface`, so they follow those changes automatically, but their contrast can still shift.
