@@ -22,6 +22,7 @@ Rules:
 - **Red marks lost revenue only.** That means the X, loss money, and the loss badges. Copy and counts on the loss side stay gray.
 - **Counts are ink, money is semantic.** On both sides, a number like "8 calls" is `--ink`. A dollar figure takes the outcome color.
 - **One success color.** Don't introduce green or black for wins.
+- **Show a win as a share of the loss.** When a win figure sits next to a larger loss figure, label it "$X of $Y recovered" and add a `.recovered-meter` bar set to `--pct: X/Y`. Then the smaller number reads as proof, not a shortfall.
 
 ## Badges
 
