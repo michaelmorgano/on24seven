@@ -1067,8 +1067,8 @@ p { margin: 0; color: var(--ink-2); }
   flex-shrink: 0;
 }
 .col-status svg {
-  width: 12px !important; height: 12px !important;
-  stroke-width: 4;
+  width: 22px; height: 22px;
+  stroke-width: 1.5;
 }
 .col-status-bad {
   background: oklch(0.60 0.18 28);
@@ -2128,7 +2128,7 @@ p { margin: 0; color: var(--ink-2); }
 
     <div class="compare">
       <div class="compare-col bad">
-        <i data-lucide="x" class="col-status col-status-bad" aria-hidden="true"></i>
+        <span class="col-status col-status-bad" aria-hidden="true"><i data-lucide="x" stroke-width="1.5"></i></span>
         <div class="col-sub" style="font-family: var(--sans); font-weight: 700">Without on24seven</div>
         <h4>Calls fall through <span class="italic">the cracks.</span></h4>
         <ul class="call-list">
@@ -2149,7 +2149,7 @@ p { margin: 0; color: var(--ink-2); }
       </div>
 
       <div class="compare-col good">
-        <i data-lucide="check" class="col-status col-status-good" aria-hidden="true"></i>
+        <span class="col-status col-status-good" aria-hidden="true"><i data-lucide="check" stroke-width="1.5"></i></span>
         <div class="col-sub" style="font-family: var(--sans); font-weight: 700">With on24seven</div>
         <h4>Every call <span class="italic">handled.</span></h4>
         <ul class="call-list">
