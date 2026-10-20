@@ -11,13 +11,14 @@ Color says who did the work. Blue means on24seven delivered. Red means money los
 | `--outcome-win` | on24seven delivered | Check badge, solid win badges, recovered or captured money |
 | `--outcome-win-ink` | Text on `--outcome-win` | White glyphs and labels on solid blue |
 | `--outcome-win-soft` / `--outcome-win-soft-ink` | Service resolved | Tinted win badges |
-| `--outcome-loss` | Money lost | The X badge and loss money figures **only** |
+| `--outcome-loss` | Money lost | The X badge and loss money figures |
+| `--outcome-loss-soft` / `--outcome-loss-soft-ink` | A call that lost revenue | Tinted red badges (Missed) |
 | `--outcome-inert` / `-fill` / `-ink` | Absence: a missed call | "Without" card (plain white), its gray badges and copy |
 
 Rules:
 
 - **Brand blue never appears on a "without" or loss surface.** Use ink for emphasis there.
-- **Red is used only for money and the X.** Labels, badges, and counts on the loss side stay gray.
+- **Red marks lost revenue only.** That means the X, loss money, and tinted Missed badges. Copy and counts on the loss side stay gray.
 - **Counts are ink, money is semantic.** On both sides, a number like "8 calls" is `--ink`. A dollar figure takes the outcome color.
 - **One success color.** Don't introduce green or black for wins.
 
@@ -29,9 +30,10 @@ Badge weight follows revenue impact:
 |---|---|---|---|
 | Solid blue | `.tag.win-strong` | Revenue kept or created | Booked, Rescheduled |
 | Tinted blue | `.tag.win-soft` | Service resolved, no revenue change | Answered, Handled |
-| Gray | `.tag.inert` | Nothing happened | Missed, Voicemail |
+| Tinted red | `.tag.loss-soft` | Revenue lost | Missed |
+| Gray | `.tag.inert` | Deferred, nothing resolved yet | Voicemail |
 
-For a new badge on an industry page, ask "did this keep or create revenue?" Yes means solid. Resolved without revenue means tint.
+For a new badge on an industry page, ask "did this keep or create revenue?" Yes means solid blue. Resolved without revenue means tinted blue. On the loss side, tinted red means revenue was lost and gray means nothing happened yet.
 
 ## Contrast
 
@@ -41,6 +43,7 @@ Current measured values:
 
 | Element | Ratio |
 |---|---|
+| `.tag.loss-soft` | 5.3:1 |
 | `.tag.inert` | 5.7:1 |
 | `.tag.win-soft` | 5.2:1 |
 | `.tag.win-strong` | 5.1:1 |

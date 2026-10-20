@@ -171,7 +171,9 @@
   --warn:      oklch(0.60 0.18 28);       /* loss money, X icon */
 
   /* Outcome tokens — compare cards (and future industry pages) */
-  --outcome-loss:        var(--warn);          /* loss money + the X badge only */
+  --outcome-loss:        var(--warn);          /* loss money, the X badge, and the tinted MISSED chip */
+  --outcome-loss-soft:   color-mix(in oklch, var(--outcome-loss) 18%, var(--outcome-inert));
+  --outcome-loss-soft-ink: oklch(0.50 0.17 28); /* loss.soft text — 5.3:1 on tint */
   /* Inert pill and text are mixed in oklab (not oklch) so they stay neutral and track --ink/--surface */
   --outcome-inert:       var(--surface-2);     /* "without" surface — plain white card */
   --outcome-inert-fill:  color-mix(in oklab, var(--ink) 12%, var(--surface)); /* inert badge pill */
@@ -1140,7 +1142,9 @@ p { margin: 0; color: var(--ink-2); }
   text-transform: uppercase;
 }
 /* Badge weight follows revenue impact:
-   win-strong = revenue kept or created, win-soft = service resolved */
+   win-strong = revenue kept or created, win-soft = service resolved,
+   loss-soft = revenue lost (missed), inert = deferred (voicemail) */
+.tag.loss-soft  { background: var(--outcome-loss-soft); color: var(--outcome-loss-soft-ink); }
 .tag.inert      { background: var(--outcome-inert-fill); color: var(--outcome-inert-ink); }
 .tag.win-strong { background: var(--outcome-win); color: var(--outcome-win-ink); }
 .tag.win-soft   { background: var(--outcome-win-soft); color: var(--outcome-win-soft-ink); }
@@ -2150,13 +2154,13 @@ p { margin: 0; color: var(--ink-2); }
         <div class="col-sub" style="font-family: var(--sans); font-weight: 700">Without on24seven</div>
         <h4>Calls fall through <span class="italic">the cracks.</span></h4>
         <ul class="call-list">
-          <li><span class="t">9:12 am</span><span class="desc">New patient · cleaning</span><span class="tag inert">Missed</span></li>
+          <li><span class="t">9:12 am</span><span class="desc">New patient · cleaning</span><span class="tag loss-soft">Missed</span></li>
           <li><span class="t">10:04 am</span><span class="desc">Sarah · reschedule</span><span class="tag inert">Voicemail</span></li>
-          <li><span class="t">11:38 am</span><span class="desc">Mark · insurance question</span><span class="tag inert">Missed</span></li>
+          <li><span class="t">11:38 am</span><span class="desc">Mark · insurance question</span><span class="tag loss-soft">Missed</span></li>
           <li><span class="t">1:22 pm</span><span class="desc">Walk-in · tooth pain</span><span class="tag inert">Voicemail</span></li>
-          <li><span class="t">2:55 pm</span><span class="desc">Linda · cancel filling</span><span class="tag inert">Missed</span></li>
+          <li><span class="t">2:55 pm</span><span class="desc">Linda · cancel filling</span><span class="tag loss-soft">Missed</span></li>
           <li><span class="t">4:07 pm</span><span class="desc">New patient · whitening</span><span class="tag inert">Voicemail</span></li>
-          <li><span class="t">5:41 pm</span><span class="desc">Lee · crown pricing</span><span class="tag inert">Missed</span></li>
+          <li><span class="t">5:41 pm</span><span class="desc">Lee · crown pricing</span><span class="tag loss-soft">Missed</span></li>
           <li><span class="t">6:30 pm</span><span class="desc">Maya · book Saturday</span><span class="tag inert">Voicemail</span></li>
         </ul>
         <div class="compare-foot">
