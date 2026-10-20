@@ -14,7 +14,7 @@ Color says who did the work. Blue means on24seven delivered. Red means money los
 | `--outcome-loss` | Money lost | The X badge and loss money figures |
 | `--outcome-loss-strong` | Revenue lost | Solid red badges (Missed), white text via `--outcome-win-ink` |
 | `--outcome-loss-soft` / `--outcome-loss-soft-ink` | Deferred, at risk | Tinted red badges (Voicemail) |
-| `--outcome-inert` / `-ink` | Absence | "Without" card (plain white) and its gray copy |
+| `--outcome-inert` / `-ink` | Absence | "Without" card (off-white `--surface`) and its gray copy |
 
 Rules:
 
@@ -45,10 +45,10 @@ Current measured values:
 | Element | Ratio |
 |---|---|
 | `.tag.loss-strong` | 5.1:1 |
-| `.tag.loss-soft` | 5.3:1 |
+| `.tag.loss-soft` | 4.9:1 |
 | `.tag.win-soft` | 5.2:1 |
 | `.tag.win-strong` | 5.1:1 |
-| Inert copy on `--outcome-inert` (white) | 8.4:1 |
-| Loss money on `--outcome-inert` (38px) | 4.3:1 |
+| Inert copy on `--outcome-inert` (off-white) | 7.7:1 |
+| Loss money on `--outcome-inert` (38px) | 4.0:1 |
 
 If you change `--surface`, `--ink`, or `--accent`, re-measure these values on the rendered page. The inert text gray is mixed in oklab from `--ink` and `--surface`, so they follow those changes automatically, but their contrast can still shift.

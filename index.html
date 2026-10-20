@@ -174,10 +174,10 @@
   --outcome-loss:        var(--warn);          /* loss money, the X badge */
   --outcome-loss-strong: oklch(0.56 0.18 28);  /* solid MISSED badge — white text 5.1:1 */
   --outcome-loss-soft:   color-mix(in oklch, var(--outcome-loss) 18%, var(--outcome-inert));
-  --outcome-loss-soft-ink: oklch(0.50 0.17 28); /* loss.soft text — 5.3:1 on tint */
+  --outcome-loss-soft-ink: oklch(0.50 0.17 28); /* loss.soft text — 4.9:1 on tint */
   /* Inert text is mixed in oklab (not oklch) so they stay neutral and track --ink/--surface */
-  --outcome-inert:       var(--surface-2);     /* "without" surface — plain white card */
-  --outcome-inert-ink:   color-mix(in oklab, var(--ink) 68%, var(--surface)); /* inert text — 8.4:1 on white surface */
+  --outcome-inert:       var(--surface);       /* "without" surface — off-white card */
+  --outcome-inert-ink:   color-mix(in oklab, var(--ink) 68%, var(--surface)); /* inert text — 7.7:1 on off-white surface */
   --outcome-win:         var(--accent);        /* win.strong fill */
   --outcome-win-ink:     var(--accent-ink);    /* white on --outcome-win — 5.1:1 */
   --outcome-win-soft:    color-mix(in oklch, var(--accent) 22%, var(--surface));
