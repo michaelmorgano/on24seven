@@ -1165,6 +1165,21 @@ p { margin: 0; color: var(--ink-2); }
 .compare-foot .v { font-family: var(--mono); font-size: 11px; text-transform: uppercase; color: var(--muted); letter-spacing: 0.12em; margin-top: 8px; white-space: nowrap; }
 .compare-col.bad .compare-foot .k.lost { color: var(--outcome-loss); }
 .compare-col.good .compare-foot .k.gain { color: var(--outcome-win); }
+/* Recovered meter — shows the win as a share of the loss pool */
+.recovered-meter {
+  height: 4px;
+  margin-top: 12px;
+  border-radius: 999px;
+  background: var(--outcome-win-soft);
+  overflow: hidden;
+}
+.recovered-meter span {
+  display: block;
+  height: 100%;
+  width: var(--pct);
+  border-radius: inherit;
+  background: var(--outcome-win);
+}
 
 /* ---------- ROI ---------- */
 .roi {
@@ -2187,7 +2202,11 @@ p { margin: 0; color: var(--ink-2); }
         <div class="compare-foot">
           <div><div class="k tnum">8</div><div class="v">Handled</div></div>
           <div><div class="k tnum">5</div><div class="v">Booked</div></div>
-          <div><div class="k tnum gain">+$2,100</div><div class="v">Revenue captured</div></div>
+          <div>
+            <div class="k tnum gain">+$2,100</div>
+            <div class="recovered-meter" role="img" aria-label="$2,100 of $3,360 recovered, 63 percent"><span style="--pct: 62.5%"></span></div>
+            <div class="v">Of $3,360 recovered</div>
+          </div>
         </div>
       </div>
     </div>
