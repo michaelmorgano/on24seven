@@ -1099,7 +1099,6 @@ p { margin: 0; color: var(--ink-2); }
 }
 /* "Without" reads as absence: gray copy, ink only for emphasis and counts */
 .compare-col.bad h4,
-.compare-col.bad .col-sub,
 .compare-col.bad .call-list .t,
 .compare-col.bad .call-list .desc,
 .compare-col.bad .compare-foot .v { color: var(--outcome-inert-ink); }
@@ -1117,10 +1116,18 @@ p { margin: 0; color: var(--ink-2); }
   line-height: 1.05;
 }
 .compare-col .col-sub {
-  font-family: var(--mono); font-size: 12px;
-  color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase;
+  font-family: var(--mono); font-size: 14px;
+  color: var(--ink); letter-spacing: 0.12em; text-transform: uppercase;
   margin-bottom: 24px;
 }
+/* Underline only WITHOUT / WITH to mark the pair: loss red vs win blue */
+.compare-col .col-sub-key {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 7px;
+}
+.compare-col.bad .col-sub-key  { text-decoration-color: var(--outcome-loss); }
+.compare-col.good .col-sub-key { text-decoration-color: var(--outcome-win); }
 .call-list { list-style: none; padding: 0; margin: 0; }
 .call-list li {
   display: grid;
@@ -1705,9 +1712,6 @@ p { margin: 0; color: var(--ink-2); }
   .container { padding: 0 20px; }
   section { padding: 64px 0; }
 
-  /* Hide "The same Tuesday · two different shops" comparison on mobile */
-  #compare { display: none !important; }
-
   /* Topbar — hide nav links, keep brand + primary CTA */
   .nav { display: none; }
   .topbar { background: color-mix(in srgb, var(--bg) 92%, transparent); }
@@ -1796,19 +1800,18 @@ p { margin: 0; color: var(--ink-2); }
   /* Long words like "on24seven.ai" break instead of overflowing */
   .roi-callout-body, .lede, .blurb, p { overflow-wrap: anywhere; }
 
-  /* Compare — single column, full width call list */
+  /* Compare — single column cards */
   .compare { gap: 16px; }
-  .compare-col { padding: 24px !important; }
-  .compare-foot {
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
-    text-align: left;
-  }
-  .compare-foot > div:last-child { text-align: left !important; justify-self: start !important; }
-  .compare-foot > div:last-child .k { text-align: left !important; }
-  .call-list li { grid-template-columns: 64px 1fr auto !important; padding: 14px 16px !important; gap: 10px; }
-  .col-status { top: 14px !important; right: 14px !important; width: 32px !important; height: 32px !important; }
-  .col-status svg { width: 10px !important; height: 10px !important; }
+  .compare-col { padding: 24px; }
+  .compare-col h4 { font-size: clamp(28px, 7.5vw, 38px); }
+  .compare-col .col-sub { padding-right: 48px; }  /* clear the status circle */
+  .col-status { top: 18px; right: 18px; width: 40px; height: 40px; }
+  .col-status svg { width: 20px; height: 20px; }
+  .call-list li { grid-template-columns: 64px 1fr auto; gap: 10px; }
+  /* Counts side by side, money on its own full-width row */
+  .compare-foot { grid-template-columns: auto 1fr; gap: 16px 28px; }
+  .compare-foot > div:last-child { grid-column: 1 / -1; justify-self: stretch; text-align: left; }
+  .compare-foot > div:last-child .k { text-align: left; }
 
   /* Pricing list — single column */
   .price-main ul { grid-template-columns: 1fr !important; }
@@ -1872,19 +1875,11 @@ p { margin: 0; color: var(--ink-2); }
   .pricing { padding: 20px !important; }
   .price-main, .price-side { padding: 20px !important; }
 
-  /* Compare call list — sit time on its own row */
-  .call-list li {
-    grid-template-columns: 1fr !important;
-    align-items: flex-start;
-    padding: 14px 14px 14px 52px !important;
-  }
-  .call-list li .t {
-    grid-column: auto;
-    font-size: 12px;
-    color: var(--muted);
-    margin-bottom: 2px;
-  }
-  .col-status { top: 12px !important; right: auto !important; left: 12px !important; }
+  /* Compare call list — time on its own row, badge stays right */
+  .compare-col { padding: 20px; }
+  .call-list li { grid-template-columns: 1fr auto; row-gap: 2px; column-gap: 12px; }
+  .call-list li .t { grid-column: 1 / -1; }
+  .call-list .desc { font-size: 14px; }
 
   /* Footer fully stacked */
   .footer-grid { grid-template-columns: 1fr; }
@@ -2166,7 +2161,7 @@ p { margin: 0; color: var(--ink-2); }
     <div class="compare">
       <div class="compare-col bad">
         <span class="col-status col-status-bad" aria-hidden="true"><i data-lucide="x" stroke-width="1.5"></i></span>
-        <div class="col-sub" style="font-family: var(--sans); font-weight: 700">Without on24seven</div>
+        <div class="col-sub" style="font-family: var(--sans); font-weight: 700"><span class="col-sub-key">Without</span> on24seven</div>
         <h4>Calls fall through <span class="italic">the cracks.</span></h4>
         <ul class="call-list">
           <li><span class="t">9:12 am</span><span class="desc">New patient · cleaning</span><span class="tag loss-strong">Missed</span></li>
@@ -2176,18 +2171,18 @@ p { margin: 0; color: var(--ink-2); }
           <li><span class="t">2:55 pm</span><span class="desc">Linda · cancel filling</span><span class="tag loss-strong">Missed</span></li>
           <li><span class="t">4:07 pm</span><span class="desc">New patient · whitening</span><span class="tag loss-soft">Voicemail</span></li>
           <li><span class="t">5:41 pm</span><span class="desc">Lee · crown pricing</span><span class="tag loss-strong">Missed</span></li>
-          <li><span class="t">6:30 pm</span><span class="desc">Maya · book Saturday</span><span class="tag loss-soft">Voicemail</span></li>
+          <li><span class="t">6:30 pm</span><span class="desc">Maya · book Saturday</span><span class="tag loss-strong">Missed</span></li>
         </ul>
         <div class="compare-foot">
           <div><div class="k tnum">8</div><div class="v">Calls lost</div></div>
-          <div><div class="k tnum">0</div><div class="v">Booked</div></div>
+          <div><div class="k tnum">5</div><div class="v">Missed</div></div>
           <div><div class="k tnum lost">−$3,360</div><div class="v">Revenue at risk</div></div>
         </div>
       </div>
 
       <div class="compare-col good">
         <span class="col-status col-status-good" aria-hidden="true"><i data-lucide="check" stroke-width="1.5"></i></span>
-        <div class="col-sub" style="font-family: var(--sans); font-weight: 700">With on24seven</div>
+        <div class="col-sub" style="font-family: var(--sans); font-weight: 700"><span class="col-sub-key">With</span> on24seven</div>
         <h4>Every call <span class="italic">handled.</span></h4>
         <ul class="call-list">
           <li><span class="t">9:12 am</span><span class="desc">New patient · booked Thu 3pm</span><span class="tag win-strong">Booked</span></li>
@@ -2196,7 +2191,7 @@ p { margin: 0; color: var(--ink-2); }
           <li><span class="t">1:22 pm</span><span class="desc">Tooth pain · triaged, booked today 5pm</span><span class="tag win-strong">Booked</span></li>
           <li><span class="t">2:55 pm</span><span class="desc">Linda · cancelled, slot freed</span><span class="tag win-soft">Handled</span></li>
           <li><span class="t">4:07 pm</span><span class="desc">New patient · booked Sat 10am</span><span class="tag win-strong">Booked</span></li>
-          <li><span class="t">5:41 pm</span><span class="desc">Lee · crown quoted, follow-up set</span><span class="tag win-soft">Answered</span></li>
+          <li><span class="t">5:41 pm</span><span class="desc">Lee · crown quoted, booked Tue 2pm</span><span class="tag win-strong">Booked</span></li>
           <li><span class="t">6:30 pm</span><span class="desc">Maya · booked Sat 9am</span><span class="tag win-strong">Booked</span></li>
         </ul>
         <div class="compare-foot">
