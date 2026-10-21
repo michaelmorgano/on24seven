@@ -37,9 +37,13 @@ Badge weight follows revenue impact:
 
 For a new badge on an industry page, ask "did this keep or create revenue?" Yes means solid blue. Resolved without revenue means tinted blue. The loss side mirrors this: solid red means revenue was lost, tinted red means it is at risk.
 
+## Type size
+
+**No text on the site is smaller than 12px.** That covers badges, eyebrows, labels and footnotes, at every breakpoint. For a smaller-feeling label, use uppercase, letter-spacing, or a lighter color instead of shrinking it.
+
 ## Contrast
 
-Badges are about 10.5px uppercase mono, so their text needs **4.5:1**. Money figures at 38px and larger need 3:1.
+Badges are 12px uppercase mono, so their text needs **4.5:1**. Money figures at 38px and larger need 3:1.
 
 Current measured values:
 
